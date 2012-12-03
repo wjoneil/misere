@@ -5,6 +5,7 @@
 #   git config --global core.excludesfile ~/.gitignore_global
 
 .rvmrc
+/config/database.yml
 
 # Ignore bundler config
 /.bundle
