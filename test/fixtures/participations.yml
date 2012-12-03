@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  winner: false
+  team_id: 1
+  game_id: 1
+
+two:
+  winner: false
+  team_id: 1
+  game_id: 1

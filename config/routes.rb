@@ -1,4 +1,19 @@
 MisereRails::Application.routes.draw do
+  resources :scores
+
+
+  resources :rounds
+
+
+  resources :games
+
+
+  resources :teams
+
+
+  resources :players
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

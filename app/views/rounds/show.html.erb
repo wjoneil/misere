@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Number:</b>
+  <%= @round.number %>
+</p>
+
+<p>
+  <b>Bid value:</b>
+  <%= @round.bid_value %>
+</p>
+
+<p>
+  <b>Bid suit:</b>
+  <%= @round.bid_suit %>
+</p>
+
+<p>
+  <b>Bidding team won round:</b>
+  <%= @round.bidding_team_won_round %>
+</p>
+
+<p>
+  <b>Tricks won by other team:</b>
+  <%= @round.tricks_won_by_other_team %>
+</p>
+
+<p>
+  <b>Winning team:</b>
+  <%= @round.winning_team_id %>
+</p>
+
+<p>
+  <b>Game:</b>
+  <%= @round.game_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_round_path(@round) %> |
+<%= link_to 'Back', rounds_path %>
