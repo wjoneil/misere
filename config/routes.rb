@@ -1,4 +1,7 @@
 MisereRails::Application.routes.draw do
+
+  root :to => 'catalog#view'
+
   resources :scores
 
 
