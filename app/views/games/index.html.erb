@@ -1,21 +1,20 @@
-<h1>Listing games</h1>
-
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<h2>Games</h2>
 
 <% @games.each do |game| %>
-  <tr>
-    <td><%= link_to 'Show', game %></td>
-    <td><%= link_to 'Edit', edit_game_path(game) %></td>
-    <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+  <div>
+    <h3><%= game.title %></h3>
+    <div class="game_content">
+      <%= game.completed? ? game.winner.name + " won this one." : "in progress" %>
+      <ul>
+        <li><%= link_to 'Details', game_rounds_path(game) %></li>
+        <li><%= link_to 'Delete', game, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+      </ul>
+    </div>
+  </div>
 <% end %>
-</table>
 
-<br />
 
-<%= link_to 'New Game', new_game_path %>
+<div>
+  <%= link_to 'Play', new_game_path %>
+</div>
+

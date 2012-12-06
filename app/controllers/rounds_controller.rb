@@ -1,8 +1,10 @@
 class RoundsController < ApplicationController
-  # GET /rounds
-  # GET /rounds.json
+  # GET /games/1/rounds
+  # GET /games/1/rounds.json
   def index
-    @rounds = Round.all
+    @game = Game.find(params[:game_id])
+    @rounds = @game.rounds
+    @new_round = @game.rounds.build
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,10 +12,11 @@ class RoundsController < ApplicationController
     end
   end
 
-  # GET /rounds/1
-  # GET /rounds/1.json
+  # GET /games/1/rounds/1
+  # GET /games/1/rounds/1.json
   def show
-    @round = Round.find(params[:id])
+    @game = Game.find(params[:game_id])
+    @round = @game.rounds.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,10 +24,11 @@ class RoundsController < ApplicationController
     end
   end
 
-  # GET /rounds/new
-  # GET /rounds/new.json
+  # GET /games/1/rounds/new
+  # GET /games/1/rounds/new.json
   def new
-    @round = Round.new
+    @game = Game.find(params[:game_id])
+    @new_round = @game.rounds.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -32,19 +36,24 @@ class RoundsController < ApplicationController
     end
   end
 
-  # GET /rounds/1/edit
+  # GET /games/1/rounds/1/edit
   def edit
-    @round = Round.find(params[:id])
+    @game = Game.find(params[:game_id])
+    @round = @game.rounds.find(params[:id])
   end
 
-  # POST /rounds
-  # POST /rounds.json
+  # POST /games/1/rounds
+  # POST /games/1/rounds.json
   def create
-    @round = Round.new(params[:round])
+    @game = Game.find(params[:game_id])
+    @round = @game.rounds.build(params[:round])
+    @round.calculate_scores
+
+    @game.rounds << @round
 
     respond_to do |format|
       if @round.save
-        format.html { redirect_to @round, notice: 'Round was successfully created.' }
+        format.html { redirect_to :back, notice: 'Round was successfully created.' }
         format.json { render json: @round, status: :created, location: @round }
       else
         format.html { render action: "new" }
@@ -53,10 +62,11 @@ class RoundsController < ApplicationController
     end
   end
 
-  # PUT /rounds/1
-  # PUT /rounds/1.json
+  # PUT /games/1/rounds/1
+  # PUT /games/1/rounds/1.json
   def update
-    @round = Round.find(params[:id])
+    @game = Game.find(params[:game_id])
+    @round = @game.rounds.find(params[:id])
 
     respond_to do |format|
       if @round.update_attributes(params[:round])
@@ -69,10 +79,10 @@ class RoundsController < ApplicationController
     end
   end
 
-  # DELETE /rounds/1
-  # DELETE /rounds/1.json
+  # DELETE /games/1/rounds/1
+  # DELETE /games/1/rounds/1.json
   def destroy
-    @round = Round.find(params[:id])
+    @round = @game.rounds.find(params[:id])
     @round.destroy
 
     respond_to do |format|

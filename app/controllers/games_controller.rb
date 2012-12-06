@@ -42,9 +42,13 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(params[:game])
 
+    params[:teams].each do |team|
+      @game.teams << Team.find(team[:id])
+    end
+
     respond_to do |format|
       if @game.save
-        format.html { redirect_to @game, notice: 'Game was successfully created.' }
+        format.html { redirect_to game_rounds_url(@game), notice: 'Game was successfully created.' }
         format.json { render json: @game, status: :created, location: @game }
       else
         format.html { render action: "new" }

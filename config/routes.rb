@@ -1,18 +1,14 @@
 MisereRails::Application.routes.draw do
 
-  root :to => 'catalog#view'
+  root :to => 'games#index'
 
-  resources :scores
+  resources :games do
+    resources :rounds, :except => [:new, :edit]
+  end
 
-
-  resources :rounds
-
-
-  resources :games
-
-
-  resources :teams
-
+  resources :teams do
+    resources :players, :only => [:index, :show]
+  end
 
   resources :players
 

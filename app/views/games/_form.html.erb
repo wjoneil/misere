@@ -11,6 +11,11 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <%= select_tag("teams[][id]", options_from_collection_for_select(Team.all, :id, :name)) %>
+    vs.
+    <%= select_tag("teams[][id]", options_from_collection_for_select(Team.all, :id, :name)) %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

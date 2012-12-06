@@ -1,23 +1,20 @@
-<h1>Listing players</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<h2>Players</h2>
 
 <% @players.each do |player| %>
-  <tr>
-    <td><%= player.name %></td>
-    <td><%= link_to 'Show', player %></td>
-    <td><%= link_to 'Edit', edit_player_path(player) %></td>
-    <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+  <div>
+    <h3><%= player.name %></h3>
+    <div class="player_content">
+
+      <ul>
+        <li><%= link_to 'Details', player %></li>
+        <li><%= link_to 'Edit', edit_player_path(player) %></li>
+        <li><%= link_to 'Delete', player, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+      </ul>
+    </div>
+  </div>
 <% end %>
-</table>
 
-<br />
 
-<%= link_to 'New Player', new_player_path %>
+<div>
+  <%= link_to 'New Player', new_player_path %>
+</div>

@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MisereRails</title>
+  <title>Misere</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+  <header>
+    <h1>Misere</h1>
+    <nav>
+      <ul>
+        <li><%= link_to "Players", players_path %></li>
+        <li><%= link_to "Teams", teams_path %></li>
+        <li><%= link_to "Games", games_path %></li>
+      </ul>
+    </nav>
+  </header>
 
 <%= yield %>
 

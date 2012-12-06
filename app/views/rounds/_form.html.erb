@@ -1,43 +1,35 @@
-<%= form_for(@round) do |f| %>
-  <% if @round.errors.any? %>
+<%= form_for([@game,@new_round]) do |f| %>
+  <% if @new_round.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@round.errors.count, "error") %> prohibited this round from being saved:</h2>
+      <h2><%= pluralize(@new_round.errors.count, "error") %> prohibited this new_round from being saved:</h2>
 
       <ul>
-      <% @round.errors.full_messages.each do |msg| %>
+      <% @new_round.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :number %><br />
-    <%= f.number_field :number %>
+  <div class="hidden_fields">
+    <%= f.hidden_field(:number, :value => "#{@game.rounds.length}") %>
+    <%= f.hidden_field(:bid_value, :value => "7") %>
+    <%= f.hidden_field(:bid_suit, :value => "clubs") %>
+    <%= f.hidden_field(:bid_team_id, :value => "1") %>
   </div>
+
   <div class="field">
-    <%= f.label :bid_value %><br />
-    <%= f.number_field :bid_value %>
+    <%= collection_select(:round, :bid_player_id, @game.players.all, :id, :name) %>
   </div>
+
   <div class="field">
-    <%= f.label :bid_suit %><br />
-    <%= f.text_field :bid_suit %>
-  </div>
-  <div class="field">
-    <%= f.label :bidding_team_won_round %><br />
+    <%= f.label :bidding_team_won_round %>
     <%= f.check_box :bidding_team_won_round %>
   </div>
   <div class="field">
-    <%= f.label :tricks_won_by_other_team %><br />
-    <%= f.number_field :tricks_won_by_other_team %>
-  </div>
-  <div class="field">
-    <%= f.label :winning_team_id %><br />
-    <%= f.number_field :winning_team_id %>
-  </div>
-  <div class="field">
-    <%= f.label :game_id %><br />
-    <%= f.number_field :game_id %>
+    <%= f.label :tricks_won_by_other_team, "Tricks won by other team" %>
+    <% tricks_array = 0.upto(10).map { |number| ["#{number}", number]} %>
+    <%= f.select(:tricks_won_by_other_team, options_for_select(tricks_array)) %>
   </div>
   <div class="actions">
     <%= f.submit %>
