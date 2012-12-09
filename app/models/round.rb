@@ -6,6 +6,10 @@ class Round < ActiveRecord::Base
   belongs_to :bid_team, :class_name => "Team"
   has_many :scores, :order => "team_id ASC", :dependent => :destroy
 
+  validates :bid_suit, :bid_value, :presence => true
+  validates :bidding_team_won_round, :inclusion => { :in => [true, false] }
+  validates :tricks_won_by_other_team, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
+
   scope :descending, order("number DESC")
 
   def other_team

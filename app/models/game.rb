@@ -5,6 +5,8 @@ class Game < ActiveRecord::Base
   has_many :rounds, :dependent => :destroy
   has_many :scores
 
+  validates_with GameTeamValidator
+
   def get_latest_scores
 
     latest_scores = {}
