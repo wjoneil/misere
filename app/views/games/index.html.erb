@@ -1,13 +1,16 @@
 <h2>Games</h2>
 
 <% @games.each do |game| %>
-  <div>
+  <div class="game">
     <h3><%= game.title %></h3>
     <div class="game_content">
       <%= game.completed? ? game.winner.name + " won this one." : "in progress" %>
-      <ul>
-        <li><%= link_to 'Details', game_rounds_path(game) %></li>
-        <li><%= link_to 'Delete', game, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+      <ul class="control">
+        <% if !game.completed? %>
+        <li><%= link_to 'Continue', game_rounds_path(game) %></li>
+        <% end %>
+        <li><%= link_to 'Details', game_path(game) %></li>
+        <li><%= link_to 'Delete', game, {method: :delete, class: "delete"}, data: { confirm: 'Are you sure?' } %></li>
       </ul>
     </div>
   </div>

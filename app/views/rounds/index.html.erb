@@ -1,21 +1,28 @@
-<h2><%= @game.title %></h2>
+<h2><%= @game.title %> <%= @game.completed? ? "" : "(#{@game.current_score})" %></h2>
+
+  <div id="notice_container"><p id="notice"><%= notice %></p></div>
 
   <% unless @game.completed? %>
-    <%= render 'form' %>
-  <% end %>
-
-  <% @rounds.descending.each do |round| %>
-
-    <h3>Round <%= round.number %></h3>
-    <div class="round_content">
-      <p> <%= round.score %>
-      <ul>
-        <li><%= round.bid_player.name %> (<%= round.bid_team.name %>) bid <%= round.bid %> </li>
-        <li><%= round.bid_team.name %> won <%= round.tricks_won_by_bidders %> tricks
-        <li><%= round.other_team.name %> won <%= round.tricks_won_by_other_team %> tricks
-      </ul>
+    <div class="new_round">
+      <%= render 'form' %>
     </div>
-
   <% end %>
 
-<%= link_to 'New Round', new_game_round_path(@game) %>
+  <div id="round_list">
+    <% @rounds.descending.each do |round| %>
+      <div class="round">
+
+        <h3>Round <%= round.number %></h3>
+        <div class="round_content">
+          <p> <%= round.score %> </p>
+          <ul>
+            <li><%= round.bid_player.name %> (<%= round.bid_team.name %>) bid <%= round.bid %> and <%= round.bid_team.eql?(round.winning_team) ? "won" : "failed" %></li>
+            <li><%= round.bid_team.name %> won <%= round.tricks_won_by_bidders %> tricks
+            <li><%= round.other_team.name %> won <%= round.tricks_won_by_other_team %> tricks
+          </ul>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+  <div class="delete"><%= link_to 'Delete most recent round', [@game, @rounds.descending.first!], {method: :delete, class: "delete"} %></div>

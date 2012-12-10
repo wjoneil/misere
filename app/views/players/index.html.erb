@@ -1,14 +1,14 @@
 <h2>Players</h2>
 
 <% @players.each do |player| %>
-  <div>
+  <div class="player">
     <h3><%= player.name %></h3>
     <div class="player_content">
 
-      <ul>
+      <ul class="control">
         <li><%= link_to 'Details', player %></li>
         <li><%= link_to 'Edit', edit_player_path(player) %></li>
-        <li><%= link_to 'Delete', player, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+        <li><%= link_to 'Delete', player, {method: :delete, class: "delete"}, data: { confirm: 'Are you sure?' } %></li>
       </ul>
     </div>
   </div>

@@ -1,3 +1,11 @@
 // Place all the styles related to the Games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.game {
+  margin: 20px 0;
+
+  .game_content {
+    margin-left: 1em;
+  }
+}

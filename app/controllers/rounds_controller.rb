@@ -4,7 +4,7 @@ class RoundsController < ApplicationController
   def index
     @game = Game.find(params[:game_id])
     @rounds = @game.rounds
-    @new_round = @game.rounds.build
+    @round = @game.rounds.build
 
     respond_to do |format|
       format.html # index.html.erb
@@ -28,7 +28,7 @@ class RoundsController < ApplicationController
   # GET /games/1/rounds/new.json
   def new
     @game = Game.find(params[:game_id])
-    @new_round = @game.rounds.build
+    # @new_round = @game.rounds.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -47,16 +47,18 @@ class RoundsController < ApplicationController
   def create
     @game = Game.find(params[:game_id])
     @round = @game.rounds.build(params[:round])
-    @round.calculate_scores
 
-    @game.rounds << @round
+    @round.calculate_scores
+    @game.rounds << @round unless @round.invalid?
 
     respond_to do |format|
-      if @round.save
-        format.html { redirect_to :back, notice: 'Round was successfully created.' }
+      if @game.save
+        format.html { redirect_to game_rounds_url(@game), notice: 'Round was successfully created.' }
         format.json { render json: @round, status: :created, location: @round }
       else
-        format.html { render action: "new" }
+        #if the round failed to create, we want to render the index with the failed round
+        @rounds = @game.rounds
+        format.html { render action: "index" }
         format.json { render json: @round.errors, status: :unprocessable_entity }
       end
     end
@@ -82,11 +84,12 @@ class RoundsController < ApplicationController
   # DELETE /games/1/rounds/1
   # DELETE /games/1/rounds/1.json
   def destroy
+    @game = Game.find(params[:game_id])
     @round = @game.rounds.find(params[:id])
     @round.destroy
 
     respond_to do |format|
-      format.html { redirect_to rounds_url }
+      format.html { redirect_to game_rounds_url(@game), notice: 'Round was successfully deleted.' }
       format.json { head :no_content }
     end
   end

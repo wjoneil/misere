@@ -1,0 +1,120 @@
+@import 'includes';
+
+html {
+  background-color: $darkgrey;
+}
+
+#header_container {
+  header{
+    width: $pagewidth;
+    margin: 0 auto;
+    padding: 10px;
+
+    color: $offwhite;
+    background-color: $offblack;
+    border: 1px solid $offblack;
+
+    text-align: center;
+
+  }
+
+  h1 {
+  font-size: 3em;
+  }
+
+  a {
+    color: $offwhite;
+    &:hover { color: #ffffff; }
+  }
+
+  ul {
+    li {
+      display: inline;
+      margin-right: 10px;
+    }
+  }
+}
+
+#content_container {
+  width: $pagewidth;
+  margin: 0 auto 100px auto;
+  padding: 20px 10px;
+  border: 1px solid $offblack;
+
+  color: $offblack;
+  background-color: $white;
+
+  h2 {
+    font-size: 2em;
+    margin-bottom: 1em;
+  }
+
+  h3 {
+    margin-bottom: .5em;
+  }
+
+  ul.control {
+
+    margin-top: 1em;
+
+    li {
+      display: inline;
+      margin-right: 1em;
+    }
+  }
+
+}
+
+a.delete {
+  color: $suitred;
+
+  &:hover {
+    color: $red;
+  }
+}
+
+#notice_container {
+  margin-bottom: 20px;
+  height: 1em;
+}
+
+#notice {
+  text-align: center;
+  color: $green;
+}
+
+
+/* Default scaffolded error/success notices */
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid #c00;
+  padding: 7px;
+  padding-bottom: 0;
+  margin: 0 auto 20px auto;
+  background-color: $offwhite;
+  h3 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+    color: #fff;
+  }
+  ul {
+    padding: 5px 5px 5px 15px;
+
+    li {
+    list-style: disc;
+    margin-left: 1em;
+    }
+
+  }
+}

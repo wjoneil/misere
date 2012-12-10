@@ -1,5 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<div class="game details">
+  <h2><%= @game.title %></h2>
+  <p><%= @game.completed? ? "Final" : "Current" %> score: <%= @game.current_score %></p>
+  <% if @game.completed? %>
+  <%= @game.winner.name + " won this one." %>
+  <% else %>
+  <%= link_to 'Continue game', game_rounds_path(@game) %>
+  <% end %>
+</div>
 
-<%= link_to 'Edit', edit_game_path(@game) %> |
-<%= link_to 'Back', games_path %>
+<%= link_to 'Back to games', games_path %>

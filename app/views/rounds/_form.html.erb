@@ -1,37 +1,66 @@
-<%= form_for([@game,@new_round]) do |f| %>
-  <% if @new_round.errors.any? %>
+<%= form_for([@game,@round]) do |f| %>
+  <% if @round.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@new_round.errors.count, "error") %> prohibited this new_round from being saved:</h2>
-
+      <h3><%= pluralize(@round.errors.count, "error") %> stopped this round from being created:</h3>
       <ul>
-      <% @new_round.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% @round.errors.each do |key, value| %>
+        <li><%= value %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
+  <h3>Round <%= @game.rounds.length %></h3>
 
   <div class="hidden_fields">
     <%= f.hidden_field(:number, :value => "#{@game.rounds.length}") %>
-    <%= f.hidden_field(:bid_value, :value => "7") %>
-    <%= f.hidden_field(:bid_suit, :value => "clubs") %>
-    <%= f.hidden_field(:bid_team_id, :value => "1") %>
+    <%= f.hidden_field(:bid_value, :value => "0") %>
+    <%= f.hidden_field(:bid_suit, :value => "") %>
+    <%= f.hidden_field(:bid_team_id, :value => "") %>
   </div>
 
-  <div class="field">
-    <%= collection_select(:round, :bid_player_id, @game.players.all, :id, :name) %>
-  </div>
+  <%= render 'score_table' %>
 
-  <div class="field">
-    <%= f.label :bidding_team_won_round %>
-    <%= f.check_box :bidding_team_won_round %>
-  </div>
-  <div class="field">
-    <%= f.label :tricks_won_by_other_team, "Tricks won by other team" %>
-    <% tricks_array = 0.upto(10).map { |number| ["#{number}", number]} %>
-    <%= f.select(:tricks_won_by_other_team, options_for_select(tricks_array)) %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <table class="fields">
+    <tbody>
+      <tr>
+        <td class="label"><%= f.label :bid_player_id, "Bidding player" %></td>
+        <td><%= collection_select(:round, :bid_player_id, @game.players.all, :id, :name) %></td>
+      </tr>
+      <tr>
+        <td class="label"><%= f.label :bidding_team_won_round %></td>
+        <td><%= f.check_box :bidding_team_won_round %></td>
+      </tr>
+      <% tricks_array = 0.upto(10).map { |number| ["#{number}", number]} %>
+      <tr>
+        <td class="label"><%= f.label :tricks_won_by_other_team %></td>
+        <td><%= f.select(:tricks_won_by_other_team, options_for_select(tricks_array)) %></td>
+      </tr>
+      <tr class="actions">
+        <td colspan="2"><%= f.submit %></td>
+      </tr>
+    </tbody>
+  </table>
+
 <% end %>
+
+<script>
+  $(function() {
+
+    $("#round_bid_player_id").on("change", function() {
+      var team_lookup = <%= raw @game.get_player_team_lookup.to_json %>;
+      $("#round_bid_team_id").val(team_lookup[$(this).val()]);
+
+    });
+
+    $("#round_bid_player_id").change();
+
+    $("#score_table").on("click", "td", function() {
+      var $this = $(this);
+      $("#round_bid_suit").val($this.data('suit').replace(/_/g, " "));
+      $("#round_bid_value").val($this.parent().data('bidvalue'));
+
+      $("#score_table td").removeClass("active");
+      $this.addClass("active");
+    });
+  });
+</script>

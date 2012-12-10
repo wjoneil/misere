@@ -1,0 +1,104 @@
+// Place all the styles related to the Rounds controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'includes';
+
+div.new_round {
+  padding: 0 10px 20px 10px;
+}
+
+#round_list {
+
+  .round {
+    padding: 20px 10px;
+
+    &:nth-child(odd) {
+      background-color: $offwhite;
+    }
+
+    &:nth-child(even) {
+
+    }
+
+    .round_content {
+      margin-left: 1em;
+    }
+
+  }
+
+}
+
+div.delete {
+  padding: 20px 10px;
+}
+
+#score_table {
+
+  margin: 20px auto;
+
+  th {
+    padding-bottom: 10px;
+  }
+
+  tr {
+
+    td {
+      border: 1px solid $lightgrey;
+
+      text-align: center;
+      vertical-align: middle;
+      padding: 10px;
+
+      &.red {
+        color: $suitred;
+      }
+
+      &.black {
+        color: $offblack;
+      }
+
+      &.active {
+        color: $offwhite;
+        background-color: $offblack;
+      }
+
+      &:hover {
+        color: $lightgrey;
+      }
+
+    }
+  }
+}
+
+table.fields {
+
+  margin: 20px auto;
+
+  tr {
+
+    &.actions {
+
+      td {
+        text-align: center;
+        padding-top: 20px;
+      }
+
+
+    }
+
+    td {
+
+      padding: 5px 0px;
+
+      &.label {
+
+        padding-right: 10px;
+
+      }
+
+    }
+
+  }
+
+}

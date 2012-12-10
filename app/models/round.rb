@@ -1,12 +1,12 @@
 class Round < ActiveRecord::Base
-  attr_accessible :bid_suit, :bid_value, :bidding_team_won_round, :number, :tricks_won_by_other_team, :bid_team_id, :bid_player_id
+  attr_accessible :bid_suit, :bid_value, :bidding_team_won_round, :number, :tricks_won_by_other_team, :bid_team_id, :bid_player_id, :game_id
 
   belongs_to :game
   belongs_to :bid_player, :class_name => "Player"
   belongs_to :bid_team, :class_name => "Team"
   has_many :scores, :order => "team_id ASC", :dependent => :destroy
 
-  validates :bid_suit, :presence => true, :inclusion => { :in => ["spades", "clubs", "diamonds", "hearts", "no trumps", "misere", "open misere"] }
+  validates :bid_suit, :inclusion => { :in => ["spades", "clubs", "diamonds", "hearts", "no trumps", "misere", "open misere"], :message => "A bid wasn't selected." }
   validates :bid_value, :presence => true
   validates :bidding_team_won_round, :inclusion => { :in => [true, false] }
   validates :tricks_won_by_other_team, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
@@ -18,9 +18,11 @@ class Round < ActiveRecord::Base
   end
 
   def winning_team
-    bid_team if bidding_team_won_round
-
-    other_team
+    if bidding_team_won_round
+      bid_team
+    else
+      other_team
+    end
   end
 
   def bid
@@ -33,19 +35,27 @@ class Round < ActiveRecord::Base
   end
 
   def score
-    scores.first().score.to_s + " - " + scores.last().score.to_s
+    scores_array = scores.map {|x| x.score }
+    scores_array.join(" - ")
   end
 
   def calculate_scores
 
-    latest_scores = game.get_latest_scores
+    begin
 
-    points = Score.lookup_points(bid_value, bid_suit)
-    new_bid_team_score = latest_scores[bid_team.id] +=  (tricks_won_by_bidders >= bid_value ? points : 0 - points)
-    new_other_team_score = latest_scores[other_team.id] += (tricks_won_by_other_team * 10)
+      latest_scores = game.get_latest_scores
+      points = Score.lookup_points(bid_value, bid_suit)
 
-    scores.build({score: new_bid_team_score, team_id: bid_team.id, game_id: game.id})
-    scores.build({score: new_other_team_score, team_id: other_team.id, game_id: game.id})
+      new_bid_team_score = latest_scores[bid_team.id] + (tricks_won_by_bidders >= bid_value ? points : 0 - points)
+      new_other_team_score = latest_scores[other_team.id] + (tricks_won_by_other_team * 10)
+
+      scores.build({score: new_bid_team_score, team_id: bid_team.id, game_id: game.id})
+      scores.build({score: new_other_team_score, team_id: other_team.id, game_id: game.id})
+
+    rescue
+      #the only way we ought to get here is if the score lookup failed, in which case the round won't pass validation anyway
+
+    end
 
   end
 

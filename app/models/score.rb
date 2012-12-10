@@ -5,7 +5,6 @@ class Score < ActiveRecord::Base
   belongs_to :round
   belongs_to :team
 
-  validates :score, :game_id, :team_id, :round_id, :presence => true
   validates :score, :numericality => { :only_integer => true }
 
   scope :latest, order("round_id DESC, team_id ASC").limit(2)

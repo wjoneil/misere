@@ -7,6 +7,10 @@ class Game < ActiveRecord::Base
 
   validates_with GameTeamValidator
 
+  def current_score
+    get_latest_scores.values.join(" - ")
+  end
+
   def get_latest_scores
 
     latest_scores = {}
@@ -15,7 +19,29 @@ class Game < ActiveRecord::Base
       latest_scores[score.team_id] = score.score
     end
 
+    if latest_scores.empty?
+      teams.each do |team|
+        latest_scores[team.id] = 0
+      end
+    end
+
     latest_scores
+  end
+
+  def get_player_team_lookup
+
+    player_team = {}
+
+    teams.each do |team|
+
+      team.players.each do |player|
+        player_team[player.id] = team.id
+      end
+
+    end
+
+    player_team
+
   end
 
   def completed?

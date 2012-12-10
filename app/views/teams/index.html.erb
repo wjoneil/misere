@@ -1,7 +1,7 @@
 <h2>Teams</h2>
 
 <% @teams.each do |team| %>
-  <div>
+  <div class="team">
     <h3><%= team.name %></h3>
     <div class="team_content">
       <p>
@@ -11,10 +11,10 @@
         and
         <%= link_to "#{player_2.name}", player_2 %>
       </p>
-      <ul>
+      <ul class="control">
         <li><%= link_to 'Details', team %></li>
         <li><%= link_to 'Rename', edit_team_path(team) %></li>
-        <li><%= link_to 'Disband', team, method: :delete, data: { confirm: 'Break up the band?' } %></li>
+        <li><%= link_to 'Disband', team, {method: :delete, class: "delete"}, data: { confirm: 'Break up the band?' } %></li>
       </ul>
     </div>
   </div>
