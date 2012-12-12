@@ -78,6 +78,7 @@ class TeamsController < ApplicationController
   def destroy
     @team = Team.find(params[:id])
     @team.destroy
+    #TODO: handle destroy failure when team still has games
 
     respond_to do |format|
       format.html { redirect_to teams_url }
