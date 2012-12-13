@@ -5,6 +5,11 @@
     <h3><%= player.name %></h3>
     <div class="player_content">
 
+      <ul>
+        <li><%= pluralize(player.games.length, "game") %></li>
+        <li><%= pluralize(player.games_won.length, "win") %></li>
+      </ul>
+
       <ul class="control">
         <li><%= link_to 'Details', player %></li>
         <li><%= link_to 'Edit', edit_player_path(player) %></li>
@@ -15,6 +20,6 @@
 <% end %>
 
 
-<div>
-  <%= link_to 'New Player', new_player_path %>
+<div class="new">
+  <%= link_to 'Create a New Player', new_player_path %>
 </div>

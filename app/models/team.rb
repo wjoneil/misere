@@ -16,6 +16,10 @@ class Team < ActiveRecord::Base
 
   before_destroy :check_participation
 
+  def games_won
+    games.where("participations.winner = 1")
+  end
+
   private
   def check_participation
     games.length.eql? 0

@@ -2,8 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import 'includes';
+
 .player {
-  margin: 20px 0;
+  padding: 20px 10px;
+
+  &:nth-child(odd) {
+    background-color: $offwhite;
+  }
+
+  &:nth-child(even) {
+
+  }
 
   .player_content {
     margin-left: 1em;

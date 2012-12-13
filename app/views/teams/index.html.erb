@@ -11,6 +11,10 @@
         and
         <%= link_to "#{player_2.name}", player_2 %>
       </p>
+      <ul>
+        <li><%= pluralize(team.games.length, "game") %></li>
+        <li><%= pluralize(team.games_won.length, "win") %></li>
+      </ul>
       <ul class="control">
         <li><%= link_to 'Details', team %></li>
         <li><%= link_to 'Rename', edit_team_path(team) %></li>
@@ -21,6 +25,6 @@
 <% end %>
 
 
-<div>
-  <%= link_to 'New Team', new_team_path %>
+<div class="new">
+  <%= link_to 'Create a New Team', new_team_path %>
 </div>

@@ -2,8 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import 'includes';
+
 .team {
-  margin: 20px 0px;
+  padding: 20px 10px;
+
+  &:nth-child(odd) {
+    background-color: $offwhite;
+  }
+
+  &:nth-child(even) {
+
+  }
 
   .team_content {
     margin-left: 1em;

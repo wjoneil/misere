@@ -1,9 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @team.name %>
-</p>
+<h2><%= @team.name %></h2>
+<div class="details">
+  <h3>Team members:</h3>
+  <ul>
+  <% @team.players.each do |player| %>
+    <li><%= link_to "#{player.name}", player %></li>
+  <% end %>
+  </ul>
+</div>
 
 
 <%= link_to 'Edit', edit_team_path(@team) %> |
