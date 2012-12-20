@@ -1,28 +1,63 @@
-<h2><%= @game.title %> <%= @game.completed? ? "" : "(#{@game.current_score})" %></h2>
+<h2><%= @game.title %></h2>
 
-  <div id="notice_container"><p id="notice"><%= notice %></p></div>
+<div id="notice_container"><p id="notice"><%= notice %></p></div>
 
-  <% unless @game.completed? %>
-    <div class="new_round">
-      <%= render 'form' %>
-    </div>
-  <% end %>
+<p class="chart_title"><%= (@game.completed? ? "Final" : "Current") + " score: #{@game.current_score}" %></p>
+<div id="rounds_index_graph" class="flot_chart"></div>
 
-  <div id="round_list">
-    <% @rounds.descending.each do |round| %>
-      <div class="round">
-
-        <h3>Round <%= round.number %></h3>
-        <div class="round_content">
-          <p> <%= round.score %> </p>
-          <ul>
-            <li><%= round.bid_player.name %> (<%= round.bid_team.name %>) bid <%= round.bid %> and <%= round.bid_team.eql?(round.winning_team) ? "won" : "failed" %></li>
-            <li><%= round.bid_team.name %> won <%= round.tricks_won_by_bidders %> tricks
-            <li><%= round.other_team.name %> won <%= round.tricks_won_by_other_team %> tricks
-          </ul>
-        </div>
-      </div>
-
-    <% end %>
+<% unless @game.completed? %>
+  <div class="new_round">
+    <%= render 'form' %>
   </div>
+<% end %>
+
+<div id="round_list">
+  <% @rounds.descending.each do |round| %>
+    <div class="round">
+
+      <h3>Round <%= round.number %></h3>
+      <div class="round_content">
+        <p> <%= round.score %> </p>
+        <ul>
+          <li><%= round.bid_player.name %> (<%= round.bid_team.name %>) bid <%= round.bid %> and <%= round.bid_team.eql?(round.winning_team) ? "won" : "failed" %></li>
+          <li><%= round.bid_team.name %> won <%= round.tricks_won_by_bidders %> tricks
+          <li><%= round.other_team.name %> won <%= round.tricks_won_by_other_team %> tricks
+        </ul>
+      </div>
+    </div>
+
+  <% end %>
+</div>
+
+<% unless @game.completed? %>
   <div class="delete"><%= link_to 'Delete most recent round', [@game, @rounds.descending.first!], {method: :delete, class: "delete"} %></div>
+<% end %>
+
+<script>
+  $(function() {
+    setUpFlotChart();
+  });
+
+  function setUpFlotChart() {
+    var data = [];
+    var colours = ["#444", "#c00"];
+    <% @game.teams.each do |team| %>
+    data.push({
+      label: "<%= team.name %>",
+      data: <%= team.scores_for_game @game %>,
+      color: colours.shift()
+    });
+    <% end %>
+
+    var plot = $.plot($('#rounds_index_graph'), data, {
+      yaxis: {
+        tickDecimals: 0
+      },
+      xaxis: {
+        tickDecimals: 0
+      }
+
+    });
+
+  }
+</script>

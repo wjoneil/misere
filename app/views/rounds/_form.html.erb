@@ -20,6 +20,8 @@
 
   <%= render 'score_table' %>
 
+  <div id="bid_notice"><p></p></div>
+
   <table class="fields">
     <tbody>
       <tr>
@@ -55,12 +57,49 @@
     $("#round_bid_player_id").change();
 
     $("#score_table").on("click", "td", function() {
-      var $this = $(this);
-      $("#round_bid_suit").val($this.data('suit').replace(/_/g, " "));
-      $("#round_bid_value").val($this.parent().data('bidvalue'));
+      var $this = $(this), bidsuit, bidvalue, bidstring;
+      bidsuit = $this.data('suit').replace(/_/g, " ");
+      bidvalue = $this.parent().data('bidvalue');
+      bidstring = bidvalue + " " + bidsuit;
+
+      $("#round_bid_suit").val(bidsuit);
+      $("#round_bid_value").val(bidvalue);
 
       $("#score_table td").removeClass("active");
       $this.addClass("active");
+
+      updateBidInfoClick(bidvalue, bidsuit);
+
     });
+
   });
+
+  function handleMisereForDisplayingBidInfo(bidvalue, bidsuit) {
+    var bidstring;
+
+    if (bidvalue === 0) {
+      bidstring = bidsuit.replace("ere", "ère");
+    } else {
+      bidstring = bidvalue + " " + bidsuit;
+    }
+
+    return bidstring;
+  }
+
+  function updateBidInfoClick(bidvalue, bidsuit) {
+    $.ajax({
+      url: "/scores/lookup.json",
+      data: { suit: bidsuit, value: bidvalue },
+      dataType: "json",
+      success: function(data, textStatus, jqXHR) {
+        var bidstring = handleMisereForDisplayingBidInfo(bidvalue, bidsuit);
+        $('#bid_notice p').html("A bid of <em>" + bidstring + "</em> is worth <em>" + data.score + " points</em>.");
+      },
+      error: function() {
+        $('#bid_notice p').html("<span class=\"error\">Couldn't retrieve score - check server</span>");
+      }
+    });
+  }
+
+
 </script>

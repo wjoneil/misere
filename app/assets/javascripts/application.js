@@ -12,4 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.button
+//= require jquery.flot
 //= require_tree .
+
+$(function() {
+  $(".new a, input[type='submit']").button();
+});

@@ -7,7 +7,7 @@ class Score < ActiveRecord::Base
 
   validates :score, :numericality => { :only_integer => true }
 
-  scope :latest, order("round_id DESC").limit(2)
+  scope :latest, order("round_id DESC, team_id ASC").limit(2)
 
   class ScoreDoesNotExist < StandardError; end
 
@@ -24,7 +24,7 @@ class Score < ActiveRecord::Base
       "10" => [440, 460, 480, 500, 520]
     }
 
-    suit_lookup = ["spades", "clubs", "diamonds", "hearts", "no trump"]
+    suit_lookup = ["spades", "clubs", "diamonds", "hearts", "no trumps"]
 
     bid_value = bid_value.to_s
 

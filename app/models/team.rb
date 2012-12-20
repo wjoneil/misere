@@ -20,6 +20,17 @@ class Team < ActiveRecord::Base
     games.where("participations.winner = 1")
   end
 
+  def scores_for_game (game)
+    data = [[0,0]]
+
+    games.find(game.id).rounds.each do |round|
+      score = round.scores.where(team_id: self.id).first()
+      data << [round.number, score.score]
+    end
+
+    data
+  end
+
   private
   def check_participation
     games.length.eql? 0

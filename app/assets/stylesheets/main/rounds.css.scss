@@ -4,6 +4,17 @@
 
 @import 'includes';
 
+
+.flot_chart {
+  width: $contentwidth;
+  height: 300px;
+  margin-bottom: 50px;
+}
+
+.chart_title {
+  text-align: center;
+}
+
 div.new_round {
   padding: 0 10px 20px 10px;
 }
@@ -68,6 +79,21 @@ div.delete {
       }
 
     }
+  }
+}
+
+#bid_notice {
+  text-align: center;
+  height: 1em;
+  color: $lightgrey;
+
+  em {
+    font-style: normal;
+    color: $darkgrey;
+  }
+
+  .error {
+    color: $suitred;
   }
 }
 

@@ -12,6 +12,8 @@ MisereRails::Application.routes.draw do
 
   resources :players
 
+  match 'scores/lookup' => 'scores#lookup'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
