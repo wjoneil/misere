@@ -1,9 +1,13 @@
 class Game < ActiveRecord::Base
+  attr_accessible :winning_team
+
   has_many :participations, :dependent => :destroy
-  has_many :teams, :through => :participations
+  has_many :teams, :through => :participations, :order => "participations.id asc"
   has_many :players, :through => :teams
   has_many :rounds, :dependent => :destroy
   has_many :scores
+
+  belongs_to :winning_team, :class_name => "Team"
 
   validates_with GameTeamValidator
 
@@ -46,26 +50,26 @@ class Game < ActiveRecord::Base
 
   def completed?
 
-    latest_scores = get_latest_scores
-
-    return false unless (latest_scores.length.eql? 2)
-
-    latest_scores.each do |key, value|
-      return true if value >= 500 || value <= -500
-    end
-
-    return false
+    !!winning_team
 
   end
 
-  def winner
-    teams.where("participations.winner = true").first()
+  def determine_winner round
+
+    score = round.scores.where(team_id: round.bid_team.id).first().score
+
+    if (round.bidding_team_won_round && score >= 500)
+      self.winning_team = round.bid_team
+    end
+
+    if (!round.bidding_team_won_round && score <= -500)
+      self.winning_team = round.other_team
+    end
+
   end
 
   def title
     created_at.strftime("%F: ") + teams.first().name + " vs " + teams.last().name
   end
-
-
 
 end

@@ -2,6 +2,7 @@
 
 <div id="notice_container"><p id="notice"><%= notice %></p></div>
 
+<!-- TODO: No need for this at round 0 -->
 <p class="chart_title"><%= (@game.completed? ? "Final" : "Current") + " score: #{@game.current_score}" %></p>
 <div id="rounds_index_graph" class="flot_chart"></div>
 
@@ -29,7 +30,7 @@
   <% end %>
 </div>
 
-<% unless @game.completed? %>
+<% unless (@game.completed? || @rounds.descending.empty?) %>
   <div class="delete"><%= link_to 'Delete most recent round', [@game, @rounds.descending.first!], {method: :delete, class: "delete"} %></div>
 <% end %>
 
@@ -55,6 +56,10 @@
       },
       xaxis: {
         tickDecimals: 0
+      },
+      legend: {
+        position: "nw",
+        labelBoxBorderColor: "#fff"
       }
 
     });

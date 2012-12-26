@@ -48,8 +48,10 @@ class RoundsController < ApplicationController
     @game = Game.find(params[:game_id])
     @round = @game.rounds.build(params[:round])
 
-    @round.calculate_scores
+    @round.determine_scores
     @game.rounds << @round unless @round.invalid?
+
+    @game.determine_winner @round
 
     respond_to do |format|
       if @game.save

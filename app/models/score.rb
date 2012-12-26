@@ -32,7 +32,6 @@ class Score < ActiveRecord::Base
 
     points[bid_value][suit_lookup.index(bid_suit)]
 
-
   end
 
 end

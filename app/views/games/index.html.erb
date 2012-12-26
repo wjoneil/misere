@@ -4,7 +4,7 @@
   <div class="game">
     <h3><%= game.title %></h3>
     <div class="game_content">
-      <%= game.completed? ? game.winner.name + " won this one." : "in progress" %>
+      <%= game.completed? ? game.winning_team.name + " won this one." : "in progress" %>
       <ul class="control">
         <% if !game.completed? %>
         <li><%= link_to 'Continue', game_rounds_path(game) %></li>

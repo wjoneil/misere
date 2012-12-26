@@ -43,6 +43,8 @@ describe Player do
       player1.teams.first().should eq(player2.teams.first())
     end
 
+    #TODO: deleting a player also deletes their team
+
   end
 
 end

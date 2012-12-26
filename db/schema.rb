@@ -11,11 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121206124612) do
+ActiveRecord::Schema.define(:version => 20121226093008) do
 
   create_table "games", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.integer  "winning_team_id"
+    t.boolean  "allow_slams",            :default => true
+    t.boolean  "cap_non_bidding_tricks", :default => true
   end
 
   create_table "memberships", :force => true do |t|
@@ -26,7 +29,6 @@ ActiveRecord::Schema.define(:version => 20121206124612) do
   end
 
   create_table "participations", :force => true do |t|
-    t.boolean  "winner"
     t.integer  "team_id"
     t.integer  "game_id"
     t.datetime "created_at", :null => false
