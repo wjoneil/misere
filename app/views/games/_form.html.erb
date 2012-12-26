@@ -16,7 +16,19 @@
     vs.
     <%= select_tag("teams[][id]", options_from_collection_for_select(Team.all, :id, :name)) %>
   </div>
+
+  <div class="field">
+    <%= f.check_box :allow_slams %><%= f.label :allow_slams, "Slams" %>
+    <p class="explanation">If a team gets all 10 tricks on a bid of 8 spades or less, they receive 250 points</p>
+  </div>
+
+  <div class="field">
+    <%= f.check_box :cap_non_bidding_tricks %><%= f.label :cap_non_bidding_tricks, "Cap points for non-bidding tricks" %>
+    <p class="explanation">A team's score can't increase past 460 from tricks won against the other team's bid</p>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
+
 <% end %>

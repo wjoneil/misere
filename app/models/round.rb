@@ -47,15 +47,17 @@ class Round < ActiveRecord::Base
       points = Score.lookup_points(bid_value, bid_suit)
 
       #Slam: a bid of less than 250 is 250 if bidders won all 10 tricks
-      #TODO: make this optional
-      points = 250 if (tricks_won_by_bidders.eql?(10) && bidding_team_won_round && points < 250)
+      if game.allow_slams
+        points = 250 if (tricks_won_by_bidders.eql?(10) && bidding_team_won_round && points < 250)
+      end
 
       new_bid_team_score = latest_scores[bid_team.id] + (tricks_won_by_bidders >= bid_value ? points : 0 - points)
       new_other_team_score = latest_scores[other_team.id] + (tricks_won_by_other_team * 10)
 
       # score doesn't increase past 460 if getting points from tricks off-bid
-      # TODO: make this optional
-      new_other_team_score = latest_scores[other_team.id] if new_other_team_score >= 460
+      if game.cap_non_bidding_tricks
+        new_other_team_score = latest_scores[other_team.id] if new_other_team_score >= 460
+      end
 
       scores.build({score: new_bid_team_score, team_id: bid_team.id, game_id: game.id})
       scores.build({score: new_other_team_score, team_id: other_team.id, game_id: game.id})

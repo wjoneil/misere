@@ -104,7 +104,17 @@ form {
 
     p {
       margin-bottom: .5em;
+
+      &.explanation {
+        margin-top: .5em;
+        color: $lightgrey;
+      }
     }
+
+    input[type=checkbox] {
+      margin-right: 5px;
+    }
+
   }
   .actions {
     margin: 3em 0 1em 0;
