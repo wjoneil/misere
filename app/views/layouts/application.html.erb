@@ -24,15 +24,20 @@
     <div id="content_container">
       <%= yield %>
     </div>
-</div>
+  </div>
+  <div id="footer_container">
+    <footer>
+      <p>a <a href="http://heywill.com/">heywill.com</a> party. Source on github. <a href="mailto:will@heywill.com">Questions?</a></p>
+    </footer>
+  </div>
 
-<script>
-  $(function() {
+  <script>
+    $(function() {
 
-    $("#notice").delay(1000).fadeOut(2000);
+      $("#notice").delay(1000).fadeOut(2000);
 
-  });
-</script>
+    });
+  </script>
 
 </body>
 </html>

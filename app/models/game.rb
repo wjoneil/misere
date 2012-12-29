@@ -1,5 +1,5 @@
 class Game < ActiveRecord::Base
-  attr_accessible :winning_team
+  attr_accessible :winning_team, :allow_slams, :cap_non_bidding_tricks
 
   has_many :participations, :dependent => :destroy
   has_many :teams, :through => :participations, :order => "participations.id asc"

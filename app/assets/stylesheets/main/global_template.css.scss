@@ -44,7 +44,7 @@ html {
 }
 
 #content_container {
-  margin: 0 auto 100px auto;
+  margin: 0 auto;
   padding: 20px 30px;
   /*border: 1px solid $offblack;*/
 
@@ -96,6 +96,15 @@ html {
     }
   }
 
+}
+
+#footer_container {
+  margin: 15px auto 100px auto;
+  width: $pagewidth;
+
+  footer {
+    padding: 0 15px;
+  }
 }
 
 form {

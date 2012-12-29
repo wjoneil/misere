@@ -8,6 +8,7 @@ class Team < ActiveRecord::Base
 
   has_many :participations
   has_many :games, :through => :participations
+  has_many :games_won, :class_name => "Game", :foreign_key => "winning_team_id"
 
   has_many :scores
 
@@ -15,10 +16,6 @@ class Team < ActiveRecord::Base
   validates_with TeamPlayerValidator
 
   before_destroy :check_participation
-
-  def games_won
-    games.where("participations.winner = 1")
-  end
 
   def scores_for_game (game)
     data = [[0,0]]

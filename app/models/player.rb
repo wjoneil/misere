@@ -8,7 +8,8 @@ class Player < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
 
   def games_won
-    games.where("participations.winner = 1")
+    games = teams.collect {|team| team.games_won}
+    games.flatten
   end
 
 end

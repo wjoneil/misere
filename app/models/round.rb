@@ -30,6 +30,17 @@ class Round < ActiveRecord::Base
     "#{bid_value} #{bid_suit}"
   end
 
+  def bid_summary
+
+    summary = "#{bid_player.name} bid #{bid} "
+
+    summary += if game.allow_slams && bidding_team_won_round && (tricks_won_by_other_team.eql? 0)
+      "and got a <strong>slam!</strong>"
+    else
+      "#{ bid_team.eql?(winning_team) ? 'and won' : 'but failed' }"
+    end
+  end
+
   def tricks_won_by_bidders
     10 - tricks_won_by_other_team
   end

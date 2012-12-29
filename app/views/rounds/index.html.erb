@@ -3,8 +3,10 @@
 <div id="notice_container"><p id="notice"><%= notice %></p></div>
 
 <!-- TODO: No need for this at round 0 -->
-<p class="chart_title"><%= (@game.completed? ? "Final" : "Current") + " score: #{@game.current_score}" %></p>
-<div id="rounds_index_graph" class="flot_chart"></div>
+<% unless @rounds.descending.empty? %>
+  <p class="chart_title"><%= (@game.completed? ? "Final" : "Current") + " score: #{@game.current_score}" %></p>
+  <div id="rounds_index_graph" class="flot_chart"></div>
+<% end %>
 
 <% unless @game.completed? %>
   <div class="new_round">
@@ -20,9 +22,9 @@
       <div class="round_content">
         <p> <%= round.score %> </p>
         <ul>
-          <li><%= round.bid_player.name %> (<%= round.bid_team.name %>) bid <%= round.bid %> and <%= round.bid_team.eql?(round.winning_team) ? "won" : "failed" %></li>
-          <li><%= round.bid_team.name %> won <%= round.tricks_won_by_bidders %> tricks
-          <li><%= round.other_team.name %> won <%= round.tricks_won_by_other_team %> tricks
+          <li><%= raw round.bid_summary %></li>
+          <li><%= round.bid_team.name %> won <strong><%= round.tricks_won_by_bidders %> tricks</strong></li>
+          <li><%= round.other_team.name %> won <strong><%= round.tricks_won_by_other_team %> tricks</strong></li>
         </ul>
       </div>
     </div>
@@ -36,7 +38,9 @@
 
 <script>
   $(function() {
-    setUpFlotChart();
+    <% unless @rounds.descending.empty? %>
+      setUpFlotChart();
+    <% end %>
   });
 
   function setUpFlotChart() {
