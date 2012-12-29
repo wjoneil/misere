@@ -1,7 +1,7 @@
 Misère
 ======
 
-Misère is an application that scores and tracks games of [500](http://en.wikipedia.org/wiki/500_(card_game)).
+Misère is an application that scores and tracks games of [500](http://en.wikipedia.org/wiki/500_(card_game) ).
 
 * Never forget how many points a bid of seven hearts is worth!
 * No longer rely on anecdotal evidence about how much better you are at 500 than your siblings and cousins!
