@@ -12,4 +12,8 @@ class Player < ActiveRecord::Base
     games.flatten
   end
 
+  def bid_percentage team
+    team.rounds_bid_on.where(bid_player_id: self.id).length / team.rounds_bid_on.length.to_f * 100
+  end
+
 end

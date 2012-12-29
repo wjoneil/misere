@@ -12,6 +12,7 @@ class Round < ActiveRecord::Base
   validates :tricks_won_by_other_team, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
 
   scope :descending, order("number DESC")
+  scope :won, where(bidding_team_won_round: true)
 
   def other_team
     game.teams.where("team_id != #{bid_team.id}").first()
@@ -50,19 +51,40 @@ class Round < ActiveRecord::Base
     scores_array.join(" - ")
   end
 
+  def scores_hash
+    scores = {}
+
+    scores.each do |score|
+      scores[score.team_id] = score.score
+    end
+
+    if scores.empty?
+      game.teams.each do |team|
+        scores[team.id] = 0
+      end
+    end
+
+    scores
+  end
+
+  def calculate_points_for_bidders
+    points = Score.lookup_points(bid_value, bid_suit)
+
+    #Slam: a bid of less than 250 is 250 if bidders won all 10 tricks
+    if game.allow_slams
+      points = 250 if (tricks_won_by_bidders.eql?(10) && bidding_team_won_round && points < 250)
+    end
+
+    (bidding_team_won_round ? points : 0 - points)
+  end
+
   def determine_scores
 
     begin
 
       latest_scores = game.get_latest_scores
-      points = Score.lookup_points(bid_value, bid_suit)
 
-      #Slam: a bid of less than 250 is 250 if bidders won all 10 tricks
-      if game.allow_slams
-        points = 250 if (tricks_won_by_bidders.eql?(10) && bidding_team_won_round && points < 250)
-      end
-
-      new_bid_team_score = latest_scores[bid_team.id] + (tricks_won_by_bidders >= bid_value ? points : 0 - points)
+      new_bid_team_score = latest_scores[bid_team.id] + calculate_points
       new_other_team_score = latest_scores[other_team.id] + (tricks_won_by_other_team * 10)
 
       # score doesn't increase past 460 if getting points from tricks off-bid

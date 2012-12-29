@@ -1,13 +1,38 @@
-<p id="notice"><%= notice %></p>
+<div id="notice_container"><p id="notice"><%= notice %></p></div>
 
 <h2><%= @team.name %></h2>
 <div class="details">
-  <h3>Team members:</h3>
+  <h3>Team members</h3>
   <ul>
   <% @team.players.each do |player| %>
     <li><%= link_to "#{player.name}", player %></li>
   <% end %>
   </ul>
+</div>
+<div class="details">
+  <h3>Game stats</h3>
+    <p>
+      <%= pluralize(@team.games.length, "game") %> - <%= pluralize(@team.games_won.length, "win") %>
+      (<%= number_to_percentage @team.win_percentage, precision: 0 %>)
+    </p>
+    <% unless @team.games_actively_lost.empty? %>
+      <p><%= @team.name %> has gone out the back door <%= pluralize(@team.games_actively_lost.length, "time") %>
+        (<%= number_to_percentage @team.active_loss_percentage, precision: 0 %>)
+      </p>
+    <% end %>
+</div>
+<div class="details">
+  <h3>Bidding stats</h3>
+  <p>Wins the bid <%= number_to_percentage @team.rounds_bid_on_percentage, precision: 0 %> of the time.</p>
+  <p>Bid breakdown:</p>
+  <ul>
+  <% @team.players.each do |player| %>
+    <li><%= player.name %> - <%= number_to_percentage player.bid_percentage(@team), precision: 0 %></li>
+  <% end %>
+  </ul>
+  <p>Wins <%= number_to_percentage @team.rounds_bid_on_and_won_percentage, precision: 0 %> of the rounds they bid on.</p>
+  <p>Average points per round: <%= @team.average_points_per_round %> </p>
+
 </div>
 
 

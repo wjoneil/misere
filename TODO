@@ -1,0 +1,26 @@
+TODO
+
+Winning: teams can only win with a score above 500 by winning the bid, not just by getting tricks
+Winning: custom "game finished" page on game completion
+
+
+Player details:
+  funnel:
+    Rounds participated in
+    Percentage of bids won personally
+    percentage of rounds won from those bids
+  most common bids
+
+Team details:
+  Game win/loss over time
+  funnel:
+    Rounds participated in
+    Percentage of bids won
+    percentage of rounds won
+  Bidding ratios of players (eg. Jane 70%, Jojo 30%)
+
+
+Confirm + Feedback for player deletion
+can't delete a player if they're in a team
+can't delete a team if they have games
+

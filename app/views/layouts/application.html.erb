@@ -34,7 +34,9 @@
   <script>
     $(function() {
 
-      $("#notice").delay(1000).fadeOut(2000);
+      <% if notice %>
+        $("#notice_container").show().delay(1000).slideUp();
+      <% end %>
 
     });
   </script>

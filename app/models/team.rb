@@ -10,12 +10,26 @@ class Team < ActiveRecord::Base
   has_many :games, :through => :participations
   has_many :games_won, :class_name => "Game", :foreign_key => "winning_team_id"
 
+  has_many :rounds, :through => :games
+
   has_many :scores
 
   validates :name, :presence => true, :uniqueness => true
   validates_with TeamPlayerValidator
 
   before_destroy :check_participation
+
+  def games_actively_lost
+    games.select {|game| !game.winning_team.id.eql?(self.id) && game.get_latest_scores[self.id] <= -500}
+  end
+
+  def rounds_bid_on
+    rounds.where(bid_team_id: self.id)
+  end
+
+  def rounds_won
+    rounds.where(bid_team_id: self.id).won
+  end
 
   def scores_for_game (game)
     data = [[0,0]]
@@ -26,6 +40,43 @@ class Team < ActiveRecord::Base
     end
 
     data
+  end
+
+  def average_points_per_round
+    points = rounds.collect { |round|
+      if (round.bid_team_id.eql? self.id)
+        round.calculate_points_for_bidders
+      else
+        round.tricks_won_by_other_team * 10
+      end
+    }
+
+    (points.inject(:+).to_f / points.length).to_i
+
+  end
+
+  def win_percentage
+    return 0 if games.empty?
+
+    games_won.length / games.length.to_f * 100
+  end
+
+  def active_loss_percentage
+    return 0 if games.empty?
+
+    games_actively_lost.length / games.length.to_f * 100
+  end
+
+  def rounds_bid_on_percentage
+    return 0 if rounds.empty?
+
+    rounds_bid_on.length / rounds.length.to_f * 100
+  end
+
+  def rounds_bid_on_and_won_percentage
+    return 0 if rounds.empty?
+
+    rounds_won.length / rounds_bid_on.length.to_f * 100
   end
 
   private
