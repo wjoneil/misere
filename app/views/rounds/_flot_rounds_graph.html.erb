@@ -1,0 +1,23 @@
+function setUpScoreFlotChart() {
+  var data = [], colours = ["#444", "#c00"], teamdata;
+  <% @game.teams.each do |team| %>
+  teamdata = <%= raw team.scores_for_game @game %>
+  teamdata.color = colours.shift();
+  data.push(teamdata);
+  <% end %>
+
+  var plot = $.plot($('#rounds_index_graph'), data, {
+    yaxis: {
+      tickDecimals: 0
+    },
+    xaxis: {
+      tickDecimals: 0
+    },
+    legend: {
+      position: "nw",
+      labelBoxBorderColor: "#fff"
+    }
+
+  });
+
+}

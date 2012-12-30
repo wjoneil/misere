@@ -3,6 +3,8 @@ TODO
 Winning: teams can only win with a score above 500 by winning the bid, not just by getting tricks
 Winning: custom "game finished" page on game completion
 
+Tests: fix coupling issue on round to test determining scores (or mock the game object I guess)
+
 
 Player details:
   funnel:

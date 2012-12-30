@@ -4,6 +4,9 @@ MisereRails::Application.routes.draw do
 
   resources :games do
     resources :rounds, :except => [:new, :edit]
+    member do
+      get 'finish'
+    end
   end
 
   resources :teams do

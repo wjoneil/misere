@@ -55,7 +55,15 @@ class RoundsController < ApplicationController
 
     respond_to do |format|
       if @game.save
-        format.html { redirect_to game_rounds_url(@game), notice: 'Round was successfully created.' }
+
+        url = if @game.completed?
+          finish_game_url(@game)
+        else
+          game_rounds_url(@game)
+        end
+
+
+        format.html { redirect_to url, notice: 'Round was successfully created.' }
         format.json { render json: @round, status: :created, location: @round }
       else
         #if the round failed to create, we want to render the index with the failed round

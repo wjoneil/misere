@@ -1,0 +1,14 @@
+<h2><%= @game.title %></h2>
+<div class="details">
+
+  <h3><%= @game.winning_team.name %> is the winner.</h3>
+
+  <p><%= "Final score: #{@game.current_score}" %>. For more details, <%= link_to 'Click here', game_path(@game) %>.</p>
+
+  <ul class="control">
+    <li><%= link_to 'New game', new_game_path %></li>
+    <li><%= link_to 'Back to games', games_path %></li>
+  </ul>
+
+
+</div>
