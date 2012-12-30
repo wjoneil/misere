@@ -31,15 +31,18 @@ class Team < ActiveRecord::Base
     rounds.where(bid_team_id: self.id).won
   end
 
-  def scores_for_game (game)
-    data = [[0,0]]
+  def scores_for_game game
+    scores = [[0,0]]
 
-    games.find(game.id).rounds.each do |round|
+    game.rounds.each do |round|
       score = round.scores.where(team_id: self.id).first()
-      data << [round.number, score.score]
+      scores << [round.number, score.score]
     end
 
-    data
+    {
+      label: self.name,
+      data: scores
+    }.to_json
   end
 
   def average_points_per_round
@@ -77,6 +80,31 @@ class Team < ActiveRecord::Base
     return 0 if rounds.empty?
 
     rounds_won.length / rounds_bid_on.length.to_f * 100
+  end
+
+  def most_common_bids
+
+    no_bids = {
+      percentage: "",
+      bids: []
+    }
+
+    return {"none" => "no bids"} if rounds_bid_on.empty?
+
+    bids = {}
+    rounds_bid_on.each do |round|
+      bids.merge!({"#{round.bid}" => 1}) { |key, oldval, newval| oldval + 1 }
+    end
+
+    max = bids.values.max
+
+    max_bids = bids.select {|key, value| value.eql? max}
+
+    {
+      percentage: "#{(max / rounds_bid_on.length.to_f * 100).round}%",
+      bids: max_bids.keys
+    }
+
   end
 
   private

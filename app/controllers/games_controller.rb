@@ -10,6 +10,16 @@ class GamesController < ApplicationController
     end
   end
 
+  # GET /games/1/finish
+  def finish
+    @game = Game.find(params[:id])
+
+    respond_to do |format|
+      format.html # finish.html.erb
+      format.json { render json: @game }
+    end
+  end
+
   # GET /games/1
   # GET /games/1.json
   def show

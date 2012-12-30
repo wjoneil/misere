@@ -24,12 +24,26 @@
 <div class="details">
   <h3>Bidding stats</h3>
   <p>Wins the bid <%= number_to_percentage @team.rounds_bid_on_percentage, precision: 0 %> of the time.</p>
-  <p>Bid breakdown:</p>
+
+  <p>Bid winners:</p>
   <ul>
   <% @team.players.each do |player| %>
     <li><%= player.name %> - <%= number_to_percentage player.bid_percentage(@team), precision: 0 %></li>
   <% end %>
   </ul>
+
+  <% most_common_bids = @team.most_common_bids %>
+  <p>
+    Most common <%= "bid".pluralize(most_common_bids[:bids].length) %>
+    <%= most_common_bids[:percentage].empty? ? "" : " - #{most_common_bids[:percentage]}" %>
+    <%= most_common_bids[:bids].length > 1 ? " each" : "" %>
+  </p>
+  <ul>
+    <% most_common_bids[:bids].each do |bid| %>
+      <li><%= bid %></li>
+    <% end %>
+  </ul>
+
   <p>Wins <%= number_to_percentage @team.rounds_bid_on_and_won_percentage, precision: 0 %> of the rounds they bid on.</p>
   <p>Average points per round: <%= @team.average_points_per_round %> </p>
 

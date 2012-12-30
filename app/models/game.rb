@@ -54,8 +54,27 @@ class Game < ActiveRecord::Base
 
   end
 
-  def determine_winner round
+  def rounds_bid_on team
+    rounds.where(bid_team_id: team.id)
+  end
 
+  def rounds_won team
+    rounds.where(bid_team_id: team.id).won
+  end
+
+  def rounds_bid_on_percentage team
+    return 0 if rounds.empty?
+
+    rounds_bid_on(team).length / rounds.length.to_f * 100
+  end
+
+  def rounds_won_percentage team
+    return 0 if rounds.empty?
+
+    rounds_won(team).length / rounds_bid_on(team).length.to_f * 100
+  end
+
+  def determine_winner round
     score = round.scores.where(team_id: round.bid_team.id).first().score
 
     if (round.bidding_team_won_round && score >= 500)

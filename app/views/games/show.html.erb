@@ -2,12 +2,40 @@
 
 <h2><%= @game.title %></h2>
 <div class="details">
-  <p><%= @game.completed? ? "Final" : "Current" %> score: <%= @game.current_score %></p>
+
+  <% unless @game.rounds.empty? %>
+    <p class="chart_title"><%= (@game.completed? ? "Final" : "Current") + " score: #{@game.current_score}" %></p>
+    <div id="rounds_index_graph" class="flot_chart"></div>
+  <% end %>
+
   <% if @game.completed? %>
   <%= @game.winning_team.name + " won this one." %>
   <% else %>
   <%= link_to 'Continue game', game_rounds_path(@game) %>
   <% end %>
 </div>
+<div class="details">
+  <h3>Round stats</h3>
+
+  <% @game.teams.each do |team| %>
+    <p><%= team.name %></p>
+    <ul>
+      <li><%= number_to_percentage @game.rounds_bid_on_percentage(team), precision: 0 %> bids won</li>
+      <li><%= number_to_percentage @game.rounds_won_percentage(team), precision: 0 %> rounds subsequently won</li>
+    </ul>
+  <% end %>
+
+
+</div>
+
+<script>
+  $(function() {
+    <% unless @game.rounds.empty? %>
+      setUpScoreFlotChart();
+    <% end %>
+  });
+
+  <%= render 'rounds/flot_rounds_graph' %>
+</script>
 
 <%= link_to 'Back to games', games_path %>

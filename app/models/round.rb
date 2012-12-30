@@ -84,7 +84,7 @@ class Round < ActiveRecord::Base
 
       latest_scores = game.get_latest_scores
 
-      new_bid_team_score = latest_scores[bid_team.id] + calculate_points
+      new_bid_team_score = latest_scores[bid_team.id] + calculate_points_for_bidders
       new_other_team_score = latest_scores[other_team.id] + (tricks_won_by_other_team * 10)
 
       # score doesn't increase past 460 if getting points from tricks off-bid
@@ -97,7 +97,7 @@ class Round < ActiveRecord::Base
 
     rescue
       #the only way we ought to get here is if the score lookup failed, in which case the round won't pass validation anyway
-
+      #raise
     end
 
   end
