@@ -10,6 +10,8 @@ Player details:
     Percentage of bids won personally
     percentage of rounds won from those bids
   most common bids
+  team win breakdowns
+
 
 Team details:
   Game win/loss over time
@@ -18,3 +20,4 @@ Confirm + Feedback for player deletion
 can't delete a player if they're in a team
 can't delete a team if they have games
 
+User acounts - devise?
