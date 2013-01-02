@@ -2,6 +2,34 @@
 
 <h2><%= @player.name %></h2>
 <div class="details">
+  <h3>Game stats</h3>
+
+  <p>
+    <%= pluralize(@player.games.length, "game") %> - <%= pluralize(@player.games_won.length, "win") %>
+    (<%= number_to_percentage @player.win_percentage, precision: 0 %>)
+  </p>
+
+</div>
+<div class="details">
+  <h3>Team stats</h3>
+
+  <ul>
+    <% @player.teams.each do |team| %>
+      <li>
+        <%= link_to "#{team.name}", team %>:
+      </li>
+      <ul>
+        <li>
+          <%= pluralize(team.games.length, "game") %> - <%= pluralize(team.games_won.length, "win") %>
+          (<%= number_to_percentage team.win_percentage, precision: 0 %>)
+        </li>
+        <li>
+          <%= @player.name %> wins the bid <%= number_to_percentage @player.bid_percentage(team), precision: 0 %> of the time.
+        </li>
+      </ul>
+    <% end %>
+  </ul>
+
 </div>
 
 

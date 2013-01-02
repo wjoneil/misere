@@ -16,4 +16,10 @@ class Player < ActiveRecord::Base
     team.rounds_bid_on.where(bid_player_id: self.id).length / team.rounds_bid_on.length.to_f * 100
   end
 
+  def win_percentage
+    return 0 if games.empty?
+
+    games_won.length / games.length.to_f * 100
+  end
+
 end
