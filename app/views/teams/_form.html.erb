@@ -11,18 +11,29 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <p><%= f.label :name %></p>
-    <%= f.text_field :name, {:size => 20 } %>
-  </div>
-  <% if @team.new_record? %>
-  <div class="field">
-    <p><%= f.label :players__id %></p>
-    <%= select_tag("players[][id]", options_from_collection_for_select(Player.all, :id, :name)) %> and
-    <%= select_tag("players[][id]", options_from_collection_for_select(Player.all, :id, :name)) %>
-  </div>
+  <% if @players.length < 2 %>
+
+    <div class="field">
+      <p>You need two players in order to make a new team. <%= link_to 'Click here to create one.', new_player_path %></p>
+    </div>
+
+  <% else %>
+
+    <div class="field">
+      <p><%= f.label :name %></p>
+      <%= f.text_field :name, {:size => 20 } %>
+    </div>
+    <% if @team.new_record? %>
+    <div class="field">
+      <p><%= f.label :players__id %></p>
+      <%= select_tag("players[][id]", options_from_collection_for_select(@players, :id, :name)) %> and
+      <%= select_tag("players[][id]", options_from_collection_for_select(@players, :id, :name)) %>
+    </div>
+    <% end %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+
   <% end %>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
 <% end %>

@@ -16,6 +16,16 @@
   </div>
 <% end %>
 
-<div class="new">
-  <%= link_to 'New Game', new_game_path %>
-</div>
+<% if current_user.players.length < 4 || current_user.teams.length < 2 %>
+  <div class="help">
+    <p>You'll need four players in two teams to start a game.</p>
+    <ul>
+      <li>See your <%= link_to "players", players_path %>, or <%= link_to 'create a new one', new_player_path %>.</li>
+      <li>See your <%= link_to "teams", teams_path %>, or <%= link_to 'create a new one', new_team_path %>.</li>
+    </ul>
+  </div>
+<% else %>
+  <div class="new">
+    <%= link_to 'New Game', new_game_path %>
+  </div>
+<% end %>

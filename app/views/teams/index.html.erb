@@ -24,7 +24,12 @@
   </div>
 <% end %>
 
-
-<div class="new">
-  <%= link_to 'Create a New Team', new_team_path %>
-</div>
+<% if current_user.players.length < 2 %>
+  <div class="help">
+    <p>You'll need two players to create a team. <%= link_to 'Click here to create a new one', new_player_path %>.</p>
+  </div>
+<% else %>
+  <div class="new">
+    <%= link_to 'Create a New Team', new_team_path %>
+  </div>
+<% end %>

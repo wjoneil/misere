@@ -11,24 +11,35 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= select_tag("teams[][id]", options_from_collection_for_select(Team.all, :id, :name)) %>
-    vs.
-    <%= select_tag("teams[][id]", options_from_collection_for_select(Team.all, :id, :name)) %>
-  </div>
 
-  <div class="field">
-    <%= f.check_box :allow_slams %><%= f.label :allow_slams, "Slams" %>
-    <p class="explanation">If a team gets all 10 tricks on a bid of 8 spades or less, they receive 250 points</p>
-  </div>
+  <% if @teams.length < 2 %>
 
-  <div class="field">
-    <%= f.check_box :cap_non_bidding_tricks %><%= f.label :cap_non_bidding_tricks, "Cap points for non-bidding tricks" %>
-    <p class="explanation">A team's score can't increase past 460 from tricks won against the other team's bid</p>
-  </div>
+    <div class="field">
+      <p>You need two teams in order to play a game of 500. <%= link_to 'Click here to create one.', new_team_path %></p>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <% else %>
+
+    <div class="field">
+      <%= select_tag("teams[][id]", options_from_collection_for_select(@teams, :id, :name)) %>
+      vs.
+      <%= select_tag("teams[][id]", options_from_collection_for_select(@teams, :id, :name)) %>
+    </div>
+
+    <div class="field">
+      <%= f.check_box :allow_slams %><%= f.label :allow_slams, "Slams" %>
+      <p class="explanation">If a team gets all 10 tricks on a bid of 8 spades or less, they receive 250 points</p>
+    </div>
+
+    <div class="field">
+      <%= f.check_box :cap_non_bidding_tricks %><%= f.label :cap_non_bidding_tricks, "Cap points for non-bidding tricks" %>
+      <p class="explanation">A team's score can't increase past 460 from tricks won against the other team's bid</p>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+
+  <% end %>
 
 <% end %>

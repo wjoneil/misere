@@ -19,7 +19,11 @@
   </div>
 <% end %>
 
-
+<% if current_user.players.length < 2 %>
+  <div class="help">
+    <p>You need four players for a game of 500. Click the button below to get started.</p>
+  </div>
+<% end %>
 <div class="new">
   <%= link_to 'Create a New Player', new_player_path %>
 </div>

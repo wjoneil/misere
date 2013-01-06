@@ -1,7 +1,5 @@
 <h2><%= @game.title %></h2>
 
-<div id="notice_container"><p id="notice"><%= notice %></p></div>
-
 <% unless @rounds.descending.empty? %>
   <p class="chart_title"><%= (@game.completed? ? "Final" : "Current") + " score: #{@game.current_score}" %></p>
   <div id="rounds_index_graph" class="flot_chart"></div>
