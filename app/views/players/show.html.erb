@@ -2,14 +2,22 @@
 <div class="details">
   <h3>Game stats</h3>
 
-  <p>
-    <%= pluralize(@player.games.length, "game") %> - <%= pluralize(@player.games_won.length, "win") %>
-    (<%= number_to_percentage @player.win_percentage, precision: 0 %>)
-  </p>
+  <% if @player.games.empty? %>
+    <p><%= @player.name %> hasn't played any games yet.</p>
+  <% else %>
+    <p>
+      <%= pluralize(@player.games.length, "game") %> - <%= pluralize(@player.games_won.length, "win") %>
+      (<%= number_to_percentage @player.win_percentage, precision: 0 %>)
+    </p>
+  <% end %>
 
 </div>
 <div class="details">
   <h3>Team stats</h3>
+
+  <% if @player.teams.empty? %>
+    <p><%= @player.name %> isn't in any teams.</p>
+  <% end %>
 
   <ul>
     <% @player.teams.each do |team| %>

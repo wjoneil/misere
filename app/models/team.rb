@@ -48,6 +48,9 @@ class Team < ActiveRecord::Base
   end
 
   def average_points_per_round
+
+    return 0 if rounds.empty?
+
     points = rounds.collect { |round|
       if (round.bid_team_id.eql? self.id)
         round.calculate_points_for_bidders
@@ -91,7 +94,7 @@ class Team < ActiveRecord::Base
       bids: []
     }
 
-    return {"none" => "no bids"} if rounds_bid_on.empty?
+    return no_bids if rounds_bid_on.empty?
 
     bids = {}
     rounds_bid_on.each do |round|
