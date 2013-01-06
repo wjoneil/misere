@@ -1,6 +1,8 @@
 class Player < ActiveRecord::Base
   attr_accessible :name
 
+  belongs_to :user
+
   has_many :memberships, :dependent => :destroy
   has_many :teams, :through => :memberships
   has_many :games, :through => :teams

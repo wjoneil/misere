@@ -1,8 +1,8 @@
-class GamesController < ApplicationController
+class GamesController < AuthenticatedController
   # GET /games
   # GET /games.json
   def index
-    @games = Game.all
+    @games = current_user.games.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -35,6 +35,7 @@ class GamesController < ApplicationController
   # GET /games/new.json
   def new
     @game = Game.new
+    @teams = Team.where(user_id: current_user.id)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -51,6 +52,7 @@ class GamesController < ApplicationController
   # POST /games.json
   def create
     @game = Game.new(params[:game])
+    @game.user = current_user
 
     params[:teams].each do |team|
       @game.teams << Team.find(team[:id])
@@ -86,7 +88,7 @@ class GamesController < ApplicationController
   # DELETE /games/1
   # DELETE /games/1.json
   def destroy
-    @game = Game.find(params[:id])
+    @game = Game.where(user_id: current_user.id).find(params[:id])
     @game.destroy
 
     respond_to do |format|

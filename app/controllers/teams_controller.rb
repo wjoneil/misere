@@ -1,8 +1,8 @@
-class TeamsController < ApplicationController
+class TeamsController < AuthenticatedController
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.all
+    @teams = Team.where(user_id: current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
-    @team = Team.find(params[:id])
+    @team = Team.where(user_id: current_user.id).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,6 +25,7 @@ class TeamsController < ApplicationController
   # GET /teams/new.json
   def new
     @team = Team.new
+    @players = Player.where(user_id: current_user.id)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +35,14 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
-    @team = Team.find(params[:id])
+    @team = Team.where(user_id: current_user.id).find(params[:id])
   end
 
   # POST /teams
   # POST /teams.json
   def create
     @team = Team.new(params[:team])
+    @team.user = current_user
 
     params[:players].each do |player|
       @team.players << Player.find(player[:id])
@@ -76,7 +78,7 @@ class TeamsController < ApplicationController
   # DELETE /teams/1
   # DELETE /teams/1.json
   def destroy
-    @team = Team.find(params[:id])
+    @team = Team.where(user_id: current_user.id).find(params[:id])
     @team.destroy
     #TODO: handle destroy failure when team still has games
 

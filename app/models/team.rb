@@ -3,6 +3,8 @@ class Team < ActiveRecord::Base
 
   attr_accessible :name
 
+  belongs_to :user
+
   has_many :memberships, :dependent => :destroy
   has_many :players, :through => :memberships
 

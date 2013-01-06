@@ -1,13 +1,14 @@
 class Game < ActiveRecord::Base
   attr_accessible :winning_team, :allow_slams, :cap_non_bidding_tricks
 
+  belongs_to :winning_team, :class_name => "Team"
+  belongs_to :user
+
   has_many :participations, :dependent => :destroy
   has_many :teams, :through => :participations, :order => "participations.id asc"
   has_many :players, :through => :teams
   has_many :rounds, :dependent => :destroy
   has_many :scores
-
-  belongs_to :winning_team, :class_name => "Team"
 
   validates_with GameTeamValidator
 

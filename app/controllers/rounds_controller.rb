@@ -1,8 +1,8 @@
-class RoundsController < ApplicationController
+class RoundsController < AuthenticatedController
   # GET /games/1/rounds
   # GET /games/1/rounds.json
   def index
-    @game = Game.find(params[:game_id])
+    @game = Game.where(user_id: current_user.id).find(params[:game_id])
     @rounds = @game.rounds
     @round = @game.rounds.build
 
@@ -15,7 +15,7 @@ class RoundsController < ApplicationController
   # GET /games/1/rounds/1
   # GET /games/1/rounds/1.json
   def show
-    @game = Game.find(params[:game_id])
+    @game = Game.where(user_id: current_user.id).find(params[:game_id])
     @round = @game.rounds.find(params[:id])
 
     respond_to do |format|
@@ -27,7 +27,7 @@ class RoundsController < ApplicationController
   # GET /games/1/rounds/new
   # GET /games/1/rounds/new.json
   def new
-    @game = Game.find(params[:game_id])
+    @game = Game.where(user_id: current_user.id).find(params[:game_id])
     # @new_round = @game.rounds.build
 
     respond_to do |format|
@@ -38,14 +38,14 @@ class RoundsController < ApplicationController
 
   # GET /games/1/rounds/1/edit
   def edit
-    @game = Game.find(params[:game_id])
+    @game = Game.where(user_id: current_user.id).find(params[:game_id])
     @round = @game.rounds.find(params[:id])
   end
 
   # POST /games/1/rounds
   # POST /games/1/rounds.json
   def create
-    @game = Game.find(params[:game_id])
+    @game = Game.where(user_id: current_user.id).find(params[:game_id])
     @round = @game.rounds.build(params[:round])
 
     @round.determine_scores
@@ -77,7 +77,7 @@ class RoundsController < ApplicationController
   # PUT /games/1/rounds/1
   # PUT /games/1/rounds/1.json
   def update
-    @game = Game.find(params[:game_id])
+    @game = Game.where(user_id: current_user.id).find(params[:game_id])
     @round = @game.rounds.find(params[:id])
 
     respond_to do |format|
@@ -94,7 +94,7 @@ class RoundsController < ApplicationController
   # DELETE /games/1/rounds/1
   # DELETE /games/1/rounds/1.json
   def destroy
-    @game = Game.find(params[:game_id])
+    @game = Game.where(user_id: current_user.id).find(params[:game_id])
     @round = @game.rounds.find(params[:id])
     @round.destroy
 
