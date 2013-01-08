@@ -1,14 +1,16 @@
 require 'bundler/capistrano'
 
-set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"")
+
+set :rvm_ruby_string, "ruby-1.9.2-p320@misere"
+require 'rvm/capistrano'
+
 
 set :application, "misere"
-set :repository,  "git@github.com:wjoneil/misere-rails.git"
+set :repository,  "git@github.com:wjoneil/misere.git"
 
-set :default_environment, {
-  'PATH' => "/home/misere/.rvm/gems/ruby-1.9.2-p320@misere/bin:/home/misere/.rvm/gems/ruby-1.9.2-p320@global/bin:/home/misere/.rvm/rubies/ruby-1.9.2-p320/bin:/home/misere/.rvm/bin:$PATH",
-  'RUBY_VERSION' => 'ruby 1.9.2'
-}
+# set :default_environment, {
+#   'PATH' => "/home/misere/.rvm/gems/ruby-1.9.2-p320@misere/bin:/home/misere/.rvm/gems/ruby-1.9.2-p320@global/bin:/home/misere/.rvm/rubies/ruby-1.9.2-p320/bin:/home/misere/.rvm/bin:$PATH",
+# }
 
 set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
