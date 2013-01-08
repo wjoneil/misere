@@ -1,4 +1,4 @@
-MisereRails::Application.routes.draw do
+Misere::Application.routes.draw do
 
   root :to => 'public#index'
 
