@@ -14,4 +14,27 @@
   p {
     margin-bottom: 0 !important;
   }
+
+}
+
+img {
+  &.step {
+    border: 1px solid $lightgrey;
+
+    &.left {
+      margin-right:1em;
+    }
+    &.right {
+      margin-left:1em;
+    }
+  }
+}
+
+div.row {
+  float: left;
+  margin-bottom: 2em;
+
+  p:first-of-type {
+    margin-top: 10px;
+  }
 }

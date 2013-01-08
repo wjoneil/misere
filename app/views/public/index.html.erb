@@ -15,10 +15,29 @@
 <p>Established users can <%= link_to "log in here", new_user_session_path %>.</p>
 
 <h3>How it works</h3>
-<p>At the beginning of each round, you enter the bid details using the helpful widget.</p>
-<p>At the end of the round, you mark whether they was successful, and how many tricks the other team took.</p>
-<p>As the game progresses, Misere charts the scores. Over time, you'll gather insights about your players, e.g. whether you are better at 500 than your siblings.</p>
 
-<!-- TODO: house rules, support -->
+<div id="how_it_works_container">
+  <div class="row">
+
+    <%= image_tag "step1.png", alt: "The bidding widget", class: "step left" %>
+    <p >At the beginning of each round, you enter the bid details using the helpful widget.</p>
+    <p> At the end of the round, you mark whether they was successful, and how many tricks the other team took.</p>
+
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="row">
+
+    <%= image_tag "step2.png", alt: "A cropped portion of a scoring chart", class: "step left" %>
+    <p>As the game progresses, Misere charts the scores. Over time, you'll gather insights about your players.</p>
+    <p>(e.g. whether you are better at 500 than your siblings.)</p>
+
+  </div>
+
+  <div class="clear"></div>
+</div>
+
+<p>If you need help with anything, you can email me at <a href="mailto:will@heywill.com?subject=Misere">will@heywill.com</a>.</p>
 
 
