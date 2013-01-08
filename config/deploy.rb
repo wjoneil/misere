@@ -43,3 +43,49 @@ namespace :deploy do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
+
+
+# http://brandon.dimcheff.com/2009/01/03/use-capistrano-to-set-your-production-database-password.html
+
+before "deploy:setup", "db:configure"
+after "deploy:finalize_update", "db:symlink"
+
+set(:database_username, "arubything")
+# set(:database_password, "root")
+set(:development_database) { application + "_development" }
+set(:test_database) { application + "_test" }
+set(:production_database) { application + "_production" }
+
+namespace :db do
+  desc "Create database yaml in shared path"
+  task :configure do
+    set :database_password do
+      Capistrano::CLI.password_prompt "Database Password: "
+    end
+
+    db_config = <<-EOF
+base: &base
+  adapter: mysql2
+  encoding: utf8
+  database: misere_development
+  pool: 5
+  username: #{database_username}
+  password: #{database_password}
+
+production:
+  database: #{production_database}
+  <<: *base
+    EOF
+
+    run "mkdir -p #{shared_path}/config"
+    put db_config, "#{shared_path}/config/database.yml"
+  end
+
+  desc "Make symlink for database yaml"
+  task :symlink do
+    run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+  end
+end
+
+
+
