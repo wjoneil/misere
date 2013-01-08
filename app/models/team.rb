@@ -37,8 +37,10 @@ class Team < ActiveRecord::Base
     scores = [[0,0]]
 
     game.rounds.each do |round|
-      score = round.scores.where(team_id: self.id).first()
-      scores << [round.number, score.score]
+      unless round.scores.empty?
+        score = round.scores.where(team_id: self.id).first()
+        scores << [round.number, score.score]
+      end
     end
 
     {

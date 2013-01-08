@@ -1,4 +1,4 @@
-<h2><%= @game.title %></h2>
+<h2><%= @game.competitors %></h2>
 
 <% unless @rounds.descending.empty? %>
   <p class="chart_title"><%= (@game.completed? ? "Final" : "Current") + " score: #{@game.current_score}" %></p>

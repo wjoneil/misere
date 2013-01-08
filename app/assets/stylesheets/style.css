@@ -124,7 +124,8 @@ button {width: auto; overflow: visible;}
 -------------------------------------------------------------------------------*/
 
 /* new Linux- and Windows-friendly sans-serif font stack: http://mky.be/fontstack */
-body {font: 14px Helmet, Freesans, sans-serif;}
+/*body {font: 14px Helmet, Freesans, sans-serif;}*/
+body {font: 14px Arial, Helvetica, sans-serif;}
 
 /* using local fonts? make sure to read up on Paul Irish's
   Bulletproof @font-face syntax: http://mky.be/font-face/bulletproof/ */

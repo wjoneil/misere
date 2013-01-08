@@ -1,0 +1,15 @@
+<div class="user_control">
+  <div id ="user_email" class="left">
+    <% if user_signed_in? %>
+      <p>
+        You're logged in as <%= current_user.email %>
+      </p>
+    <% end %>
+  </div>
+  <div class="right">
+    <p>
+      <%= render 'devise/menu/login_items' %>
+    </p>
+  </div>
+  <div class="clear"></div>
+</div>

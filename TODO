@@ -20,4 +20,6 @@ Confirm + Feedback for player deletion
 can't delete a player if they're in a team
 can't delete a team if they have games
 
-User acounts - devise?
+Lock down devise routes we don't care about: account editing etc.
+
+Welcome page

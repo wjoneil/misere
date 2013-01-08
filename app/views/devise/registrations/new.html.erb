@@ -1,0 +1,25 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%# f.label :email %>
+    <%= f.email_field :email, placeholder: "email" %>
+  </div>
+
+  <div class="field">
+    <%# f.label :password %>
+    <%= f.password_field :password, placeholder: "password" %>
+  </div>
+
+  <div class="field">
+    <%# f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, placeholder: "ctrl-v your password again" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign me up" %>
+    <p>I already have an account so <%= link_to "log me in", new_session_path(resource_name) %></p>
+  </div>
+<% end %>

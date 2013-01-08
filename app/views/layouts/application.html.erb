@@ -7,15 +7,22 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div id="pre_body_container">
+    <%= render 'devise/menu/user_control' %>
+  </div>
   <div id="body_container">
     <div id="header_container">
       <header>
-          <h1>Misère</h1>
+          <h1><%= link_to "Misère", root_path %></h1>
           <nav>
             <ul>
-              <li><%= link_to "Players", players_path %></li>
-              <li><%= link_to "Teams", teams_path %></li>
-              <li><%= link_to "Games", games_path %></li>
+              <% if user_signed_in? %>
+                <li><%= link_to "Players", players_path %></li>
+                <li><%= link_to "Teams", teams_path %></li>
+                <li><%= link_to "Games", games_path %></li>
+              <% else %>
+                <li><%= link_to('Log in', new_user_session_path)  %></li>
+              <% end %>
             </ul>
           </nav>
       </header>
@@ -29,7 +36,14 @@
   </div>
   <div id="footer_container">
     <footer>
-      <p>a <a href="http://heywill.com/">heywill.com</a> party. Source on github. <a href="mailto:will@heywill.com">Questions?</a></p>
+      <div id ="user_email" class="left">
+        <p>a <a href="http://heywill.com/">heywill.com</a> party. Source on github.</p>
+      </div>
+      <div class="right">
+        <p><a href="mailto:will@heywill.com">Questions?</a></p>
+      </div>
+      <div class="clear"></div>
+
     </footer>
   </div>
 
@@ -37,7 +51,10 @@
     $(function() {
 
       <% if notice %>
-        $("#notice_container").show().delay(1000).slideUp();
+        $("#notice_container").show().delay(3000).slideUp();
+      <% end %>
+      <% if alert %>
+        $("#alert_container").show().delay(5000).slideUp();
       <% end %>
 
     });

@@ -12,3 +12,69 @@ $lightgrey: #ccc;
 $darkgrey: #666;
 
 $white: #fff;
+
+//---mixins------
+
+//---Box Shadow---
+@mixin box-shadow($top, $left, $blur, $color, $inset:false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+//---Border radius---
+@mixin round-corners($radius) {
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -o-border-radius: $radius;
+  border-radius: $radius;
+}
+
+//---Gradient---
+@mixin gradient-overlay($opacity) {
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00100001', endColorstr='#1a100001',GradientType=0 );
+  background-image: -moz-linear-gradient(top, rgba(16,0,1,0) 0%, rgba(16,0,1,$opacity) 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(16,0,1,0)), color-stop(100%,rgba(16,0,1,$opacity)));
+  background-image: -webkit-linear-gradient(top, rgba(16,0,1,0) 0%, 1%,rgba(16,0,1,$opacity) 100%);
+  background-image: linear-gradient(top, rgba(16,0,1,0) 0%,rgba(16,0,1,$opacity) 100%);
+}
+
+//---Text Shadow---
+@mixin text-shadow($horizontal, $vertical, $blur, $color) {
+  text-shadow: $horizontal $vertical $blur $color;
+  filter: dropshadow(color=$color, offx=$horizontal, offy=$vertical);
+}
+
+//All this for a fancy button. No wonder people use jqueryui
+
+.button {
+  border: none;
+  background-color: #03f;
+  color: $white;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+  @include round-corners(5px);
+  @include box-shadow(0, 1px, 2px, rgba(0,0,0,0.3), false);
+  @include gradient-overlay(0.2);
+  padding: 0.4em 1em 0.5em 1em;
+  margin: 5px;
+  display: inline-block;
+  line-height: 100%;
+  text-height: 100%;
+  overflow: visible;
+  &:hover, &:active {
+    @include gradient-overlay(0.3);
+    @include text-shadow(1px, 1px, 0, transparentize(#FFF, 0.8));
+    cursor:pointer;
+    color: $white;
+  }
+}

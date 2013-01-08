@@ -1,0 +1,24 @@
+<figure>
+  <%= image_tag "tension.png" %>
+  <figcaption>Day One of the Hall Family Christmas 500 Tournament</figcaption>
+</figure>
+<h2>Welcome to Misère.</h2>
+<p>Misère is an application for keeping track of your games of 500, so you can concentrate on playing instead of remembering how many points a bid of 8 Clubs is worth. (260, just fyi)</p>
+
+<div class="call_to_action">
+  <p>
+    <%= link_to "Sign up", new_user_registration_path, class: "button" %>
+    Free, except I'm going to use your data to make pretty graphs.
+  </p>
+</div>
+
+<p>Established users can <%= link_to "log in here", new_user_session_path %>.</p>
+
+<h3>How it works</h3>
+<p>At the beginning of each round, you enter the bid details using the helpful widget.</p>
+<p>At the end of the round, you mark whether they was successful, and how many tricks the other team took.</p>
+<p>As the game progresses, Misere charts the scores. Over time, you'll gather insights about your players, e.g. whether you are better at 500 than your siblings.</p>
+
+<!-- TODO: house rules, support -->
+
+

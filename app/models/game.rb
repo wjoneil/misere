@@ -89,7 +89,11 @@ class Game < ActiveRecord::Base
   end
 
   def title
-    created_at.strftime("%F: ") + teams.first().name + " vs " + teams.last().name
+    created_at.strftime("%F: ") + competitors
+  end
+
+  def competitors
+    teams.first().name + " vs " + teams.last().name
   end
 
 end

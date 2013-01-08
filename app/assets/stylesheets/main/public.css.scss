@@ -1,0 +1,17 @@
+@import 'includes';
+
+.call_to_action {
+
+  padding: 10px 5px;
+  border-radius: 5px;
+  background-color: $offwhite;
+  margin: 2em 0;
+
+  a.button {
+    margin-right: 5px;
+  }
+
+  p {
+    margin-bottom: 0 !important;
+  }
+}
