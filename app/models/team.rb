@@ -19,7 +19,7 @@ class Team < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
   validates_with TeamPlayerValidator
 
-  before_destroy :check_participation
+  before_destroy :destroy_games
 
   def games_actively_lost
     games.select {|game| !game.winning_team.id.eql?(self.id) && game.get_latest_scores[self.id] <= -500}
@@ -115,8 +115,13 @@ class Team < ActiveRecord::Base
   end
 
   private
-  def check_participation
-    games.length.eql? 0
+
+  # can't use :dependent => :destroy on :through => associations
+  # but we want to disband the teams and delete the games
+  def destroy_games
+    games.each do |game|
+      game.destroy
+    end
   end
 
 end
