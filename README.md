@@ -3,7 +3,7 @@ Misère
 
 Misère is an application that scores and tracks games of [500][1].
 
-You can see Misère in action [here](http://misere.co.nz)
+You can see Misère in action [here](http://misere.co.nz).
 
 * Never forget how many points a bid of seven hearts is worth!
 * No longer rely on anecdotal evidence about how much better you are at 500 than your siblings and cousins!
