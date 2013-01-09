@@ -55,11 +55,11 @@ Misere::Application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default :charset => "utf-8"
   ActionMailer::Base.smtp_settings = {
-    :domain               => CONFIG[:email_domain],
+    :domain               => MISERE_CONFIG[:email_domain],
     :address              => "smtp.gmail.com",
     :port                 => 587,
-    :user_name            => CONFIG[:email_username],
-    :password             => CONFIG[:email_password],
+    :user_name            => MISERE_CONFIG[:email_username],
+    :password             => MISERE_CONFIG[:email_password],
     :authentication       => "plain",
     :enable_starttls_auto => true
   }
