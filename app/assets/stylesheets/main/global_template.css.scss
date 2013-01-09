@@ -76,6 +76,7 @@ html {
 
   h2 {
     font-size: 2em;
+    font-weight: 600;
     padding-bottom: 5px;
     border-bottom: 1px solid $lightgrey;
     margin-bottom: 20px;
@@ -85,6 +86,13 @@ html {
   h3 {
     font-size: 1.5em;
     margin: 1em 0 0.5em 0;
+  }
+
+  h2, h3 {
+    em {
+      font-weight: 300;
+      font-style: italic;
+    }
   }
 
   p {
@@ -259,8 +267,9 @@ div.contrast p{
   margin: 0 auto 20px auto;
   background-color: $offwhite;
   h3 {
+    font-size: 1em;
     text-align: left;
-    font-weight: bold;
+    font-weight: normal;
     padding: 5px 5px 5px 15px;
     margin: -7px;
     margin-bottom: 0px;
@@ -268,7 +277,7 @@ div.contrast p{
     color: #fff;
   }
   ul {
-    padding: 5px 5px 5px 15px;
+    padding: 1em 5px;
 
     li {
     list-style: disc;
