@@ -3,6 +3,8 @@ Misère
 
 Misère is an application that scores and tracks games of [500][1].
 
+You can see Misère in action [here](http://misere.co.nz)
+
 * Never forget how many points a bid of seven hearts is worth!
 * No longer rely on anecdotal evidence about how much better you are at 500 than your siblings and cousins!
 * Don't worry about forgetting the score because it's 1am and you're exhausted after been playing non-stop for five hours!
@@ -17,4 +19,6 @@ About
 Current Limitations
 -------------------
 
-Because it's currently only designed to be run locally, there's no way to host it anywhere because all the data is global, which isn't really practical. Once I add user accounts I'll put it up somewhere.
+Players belong to a single User, so two friends can't both run Misère accounts where either account updates the "shared" player stats. It's possible if I reimplement the model using a join table, but I can't think of an elegant way for one user to share his players with another.
+
+
