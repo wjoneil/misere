@@ -4,13 +4,18 @@
   <%= devise_error_messages! %>
   <%= f.hidden_field :reset_password_token %>
 
-  <div><%= f.label :password, "New password" %><br />
-  <%= f.password_field :password %></div>
+  <div class="field">
+    <%# f.label :password %>
+    <%= f.password_field :password, placeholder: "new password" %>
+  </div>
 
-  <div><%= f.label :password_confirmation, "Confirm new password" %><br />
-  <%= f.password_field :password_confirmation %></div>
+  <div class="field">
+    <%# f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, placeholder: "ctrl-v your password again" %>
+  </div>
 
-  <div><%= f.submit "Change my password" %></div>
+  <div class="actions">
+    <%= f.submit "Hooray" %>
+    <p>And let's just never speak of this again.</p>
+  </div>
 <% end %>
-
-<%= render "devise/shared/links" %>
