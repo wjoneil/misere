@@ -9,11 +9,11 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+MISERE_CONFIG = YAML.load(File.read(File.expand_path('../misere_settings.yml', __FILE__)))
+MISERE_CONFIG.symbolize_keys!
+
 module Misere
   class Application < Rails::Application
-
-    MISERE_CONFIG = YAML.load(File.read(File.expand_path('../misere_settings.yml', __FILE__)))
-    MISERE_CONFIG.symbolize_keys!
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
