@@ -10,7 +10,7 @@
         <li><%= link_to 'Continue', game_rounds_path(game) %></li>
         <% end %>
         <li><%= link_to 'Details', game_path(game) %></li>
-        <li><%= link_to 'Delete', game, {method: :delete, class: "delete"}, data: { confirm: 'Are you sure?' } %></li>
+        <li><%= link_to 'Delete', game, {method: :delete, class: "delete", confirm: "Are you sure? I'm not backing up the database so this is for keeps."  } %></li>
       </ul>
     </div>
   </div>

@@ -18,7 +18,7 @@
       <ul class="control">
         <li><%= link_to 'Details', team %></li>
         <li><%= link_to 'Rename', edit_team_path(team) %></li>
-        <li><%= link_to 'Disband', team, {method: :delete, class: "delete"}, data: { confirm: 'Break up the band?' } %></li>
+        <li><%= link_to 'Disband', team, {method: :delete, class: "delete", confirm: 'You sure? Disbanding a team will also remove all data from any games they participated in.' } %></li>
       </ul>
     </div>
   </div>

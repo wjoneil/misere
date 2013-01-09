@@ -22,7 +22,5 @@ can't delete a team if they have games
 
 Lock down devise routes we don't care about: account editing etc.
 
-logo: image? typekit?
-fix the password reset email sending on the server
 check we're handling player/team/game deletion
 cucumber tests of workflow
