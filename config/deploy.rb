@@ -83,9 +83,10 @@ production:
     put db_config, "#{shared_path}/config/database.yml"
   end
 
-  desc "Make symlink for database yaml"
+  desc "Make symlink for config yamls"
   task :symlink do
     run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{deploy_to}/shared/config/misere_settings.yml #{release_path}/config/misere_settings.yml"
   end
 end
 
