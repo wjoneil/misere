@@ -1,0 +1,4 @@
+email_username: "hello@example.com"
+email_password: "secret"
+email_domain: "example.com"
+typekit:
