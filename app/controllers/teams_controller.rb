@@ -50,9 +50,10 @@ class TeamsController < AuthenticatedController
 
     respond_to do |format|
       if @team.save
-        format.html { redirect_to @team, notice: 'Team was successfully created.' }
+        format.html { redirect_to teams_url, notice: 'Team was successfully created.' }
         format.json { render json: @team, status: :created, location: @team }
       else
+        @players = Player.where(user_id: current_user.id)
         format.html { render action: "new" }
         format.json { render json: @team.errors, status: :unprocessable_entity }
       end
