@@ -6,6 +6,7 @@
 
 .rvmrc
 /config/database.yml
+/config/misere_settings.yml
 
 # Ignore bundler config
 /.bundle
