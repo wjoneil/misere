@@ -13,7 +13,6 @@ module Misere
   class Application < Rails::Application
 
     MISERE_CONFIG = YAML.load(File.read(File.expand_path('../misere_settings.yml', __FILE__)))
-    MISERE_CONFIG.merge! config.fetch(Rails.env, {})
     MISERE_CONFIG.symbolize_keys!
 
     # Settings in config/environments/* take precedence over those specified here.
