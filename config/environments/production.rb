@@ -52,8 +52,17 @@ Misere::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.default_url_options = { :host => 'misere.co.nz' }
-  config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
+  config.action_mailer.default :charset => "utf-8"
+  ActionMailer::Base.smtp_settings = {
+    :domain               => CONFIG[:email_domain],
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :user_name            => CONFIG[:email_username],
+    :password             => CONFIG[:email_password],
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
 
   # Enable threaded mode
   # config.threadsafe!
