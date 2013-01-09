@@ -27,6 +27,13 @@ gem 'jquery-ui-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
+
+end
+
+group :test do
+  gem 'cucumber-rails', :require => false
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
 end
 
 # To use ActiveModel has_secure_password
